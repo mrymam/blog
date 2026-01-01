@@ -5,7 +5,7 @@ export const SITE = {
   desc: "Tsukasa Maruyamaの技術ブログ",
   title: "mrymam",
   ogImage: "astropaper-og.jpg",
-  lightAndDarkMode: true,
+  lightAndDarkMode: false, // trueにすると切り替えボタンが表示される
   postPerIndex: 4,
   postPerPage: 4,
   scheduledPostMargin: 15 * 60 * 1000, // 15 minutes
