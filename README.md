@@ -30,6 +30,18 @@ pnpm format         # コード整形
 pnpm lint           # リント
 ```
 
+## 命名規則
+
+### ブログ記事
+
+`src/data/blog/` 配下のファイルは以下の命名規則に従います:
+
+```
+{YYYYMMDD}_name.md
+```
+
+例: `20260101_my-first-post.md`
+
 ## AIと自動化の活用
 
 - Claude Codeを使用した開発支援

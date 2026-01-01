@@ -45,6 +45,18 @@ src/
 public/             # 静的アセット
 ```
 
+## Naming Conventions
+
+### ブログ記事
+
+`src/data/blog/` 配下のファイルは以下の命名規則に従う:
+
+```
+{YYYYMMDD}_name.md
+```
+
+例: `20260101_my-first-post.md`
+
 ## Deploy
 
 `main`ブランチへのプッシュでGitHub Actionsが自動デプロイを実行。
