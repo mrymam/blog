@@ -1,4 +1,4 @@
-const primaryColorScheme = ""; // "light" | "dark"
+const primaryColorScheme = "light"; // "light" | "dark"
 
 // Get theme data from local storage
 const currentTheme = localStorage.getItem("theme");
@@ -80,9 +80,9 @@ document.addEventListener("astro:before-swap", event => {
 });
 
 // sync with system changes
-window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", ({ matches: isDark }) => {
-    themeValue = isDark ? "dark" : "light";
-    setPreference();
-  });
+// window
+//   .matchMedia("(prefers-color-scheme: dark)")
+//   .addEventListener("change", ({ matches: isDark }) => {
+//     themeValue = isDark ? "dark" : "light";
+//     setPreference();
+//   });
