@@ -52,10 +52,13 @@ public/             # 静的アセット
 `src/data/blog/` 配下のファイルは以下の命名規則に従う:
 
 ```
-{YYYYMMDD}_name.md
+{YYYYMMDD}{XX}_name.md
 ```
 
-例: `20260101_my-first-post.md`
+- `{YYYYMMDD}`: 日付
+- `{XX}`: 2桁のインデックス（00, 01, ...）
+
+例: `2026010100_my-first-post.md`
 
 ## Deploy
 
