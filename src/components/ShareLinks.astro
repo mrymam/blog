@@ -2,7 +2,19 @@
 import { SHARE_LINKS } from "@/constants";
 import LinkButton from "./LinkButton.astro";
 
+interface Props {
+  title?: string;
+}
+
+const { title = "" } = Astro.props;
 const URL = Astro.url;
+
+function getShareUrl(social: (typeof SHARE_LINKS)[number]) {
+  if (social.name === "X" && title) {
+    return `${social.href}${encodeURIComponent(URL.toString())}&text=${encodeURIComponent(title)}`;
+  }
+  return `${social.href}${URL}`;
+}
 ---
 
 {
@@ -12,7 +24,7 @@ const URL = Astro.url;
       <div class="text-center">
         {SHARE_LINKS.map(social => (
           <LinkButton
-            href={`${social.href + URL}`}
+            href={getShareUrl(social)}
             class="scale-90 p-2 hover:rotate-6 sm:p-1"
             title={social.linkTitle}
           >
