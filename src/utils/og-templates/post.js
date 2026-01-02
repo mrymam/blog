@@ -1,7 +1,14 @@
 import satori from "satori";
+import fs from "node:fs";
+import path from "node:path";
 // import { html } from "satori-html";
 import { SITE } from "@/config";
 import loadGoogleFonts from "../loadGoogleFont";
+
+// Profile icon as Base64 data URI
+const iconPath = path.resolve("public/profile-icon.jpg");
+const iconBuffer = fs.readFileSync(iconPath);
+const profileIcon = `data:image/jpeg;base64,${iconBuffer.toString("base64")}`;
 
 // const markup = html`<div
 //       style={{
@@ -175,15 +182,24 @@ export default async post => {
                         },
                         children: [
                           {
-                            type: "span",
+                            type: "div",
                             props: {
+                              style: {
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "12px",
+                              },
                               children: [
-                                "by ",
                                 {
-                                  type: "span",
+                                  type: "img",
                                   props: {
-                                    style: { color: "transparent" },
-                                    children: '"',
+                                    src: profileIcon,
+                                    width: 64,
+                                    height: 64,
+                                    style: {
+                                      borderRadius: "50%",
+                                      border: "3px solid #888",
+                                    },
                                   },
                                 },
                                 {
