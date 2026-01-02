@@ -1,6 +1,8 @@
 import { defineConfig, envField } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
+import mdx from "@astrojs/mdx";
+import embeds from "astro-embed/integration";
 import remarkToc from "remark-toc";
 import remarkCollapse from "remark-collapse";
 import {
@@ -16,6 +18,8 @@ export default defineConfig({
   site: SITE.website,
   integrations: [
     sitemap(),
+    embeds(),
+    mdx(),
   ],
   markdown: {
     remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],

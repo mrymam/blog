@@ -1,0 +1,83 @@
+---
+import ogs from "open-graph-scraper";
+
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+
+let ogData: {
+  title?: string;
+  description?: string;
+  image?: string;
+  siteName?: string;
+  favicon?: string;
+} = {};
+
+try {
+  const { result } = await ogs({ url });
+  const ogImage = result.ogImage?.[0]?.url;
+
+  // Faviconを取得
+  const urlObj = new URL(url);
+  const favicon = `https://www.google.com/s2/favicons?domain=${urlObj.hostname}&sz=32`;
+
+  ogData = {
+    title: result.ogTitle || result.dcTitle || urlObj.hostname,
+    description: result.ogDescription || result.dcDescription || "",
+    image: ogImage,
+    siteName: result.ogSiteName || urlObj.hostname,
+    favicon,
+  };
+} catch (e) {
+  console.error(`Failed to fetch OGP for ${url}:`, e);
+  const urlObj = new URL(url);
+  ogData = {
+    title: urlObj.hostname,
+    description: "",
+    siteName: urlObj.hostname,
+    favicon: `https://www.google.com/s2/favicons?domain=${urlObj.hostname}&sz=32`,
+  };
+}
+---
+
+<a
+  href={url}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="not-prose my-4 flex overflow-hidden rounded-lg border border-border bg-muted/30 transition-colors hover:bg-muted/50"
+>
+  {
+    ogData.image && (
+      <div class="hidden w-[200px] flex-shrink-0 sm:block">
+        <img
+          src={ogData.image}
+          alt=""
+          class="h-full w-full object-cover"
+          loading="lazy"
+        />
+      </div>
+    )
+  }
+  <div class="flex min-w-0 flex-1 flex-col justify-center gap-1 p-4">
+    <div class="truncate font-semibold text-foreground">
+      {ogData.title}
+    </div>
+    {
+      ogData.description && (
+        <div class="line-clamp-2 text-sm text-foreground/70">
+          {ogData.description}
+        </div>
+      )
+    }
+    <div class="mt-1 flex items-center gap-2 text-xs text-foreground/50">
+      {
+        ogData.favicon && (
+          <img src={ogData.favicon} alt="" class="size-4" loading="lazy" />
+        )
+      }
+      <span class="truncate">{ogData.siteName}</span>
+    </div>
+  </div>
+</a>
