@@ -16,10 +16,13 @@ description: GitHubのTerraform Providerを調べてみて、俺は使いたい�
 ## 結論
 
 
-ORGの設定と、Repository、GitHub Appsあたりの設定は、Terraformで管理できるとだいぶ健全に管理できるなと思った。この辺の設定は、OwnerやリポジトリのAdminじゃないとそもそも見ることもできないから、レビューを通してチームメンバーみんなで合意して設定した方が良さそうだから。
+[Terraform Provider](https://github.com/integrations/terraform-provider-github)を調べてみた感じ、俺はTerraform管理したらいいなと思った。
+ORG・Repository・GitHub Apps あたりの設定はTerraformで管理できると健全。
 
+- OwnerやAdminしか見れない設定を、チーム全員で見れるようになる
+- PRレビューを通して合意形成・証跡管理ができる
 
-ただし、どうしても最新機能への追従が遅れる部分ももちろんある。この辺は手動管理との併用を覚悟すべきかな
+ただし、最新機能への追従は遅れがち。手動管理との併用になる
 
 ---
 
