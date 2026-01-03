@@ -22,7 +22,10 @@ export default defineConfig({
     mdx(),
   ],
   markdown: {
-    remarkPlugins: [remarkToc, [remarkCollapse, { test: "Table of contents" }]],
+    remarkPlugins: [
+      [remarkToc, { heading: "目次" }],
+      [remarkCollapse, { test: "目次" }],
+    ],
     shikiConfig: {
       // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
