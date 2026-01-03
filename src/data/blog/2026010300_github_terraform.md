@@ -40,7 +40,7 @@ description: GitHubのTerraform Providerを調べてみて、俺は使いたい�
 ## 最初に結論
 
 
-[Terraform Provider](https://github.com/integrations/terraform-provider-github)を調べてみた感じ、俺はTerraform管理したらいいなと思った。
+[Terraform Provider](https://github.com/integrations/terraform-provider-github)を調べてみた感じ、俺はTerraform管理したら嬉しいなと思った。使いたい。
 
 特に、ORG・Repository・GitHub Apps あたりの設定はTerraformで管理できると健全だなと思った。
 
