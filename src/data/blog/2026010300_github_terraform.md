@@ -68,6 +68,28 @@ SHA Pinningの設定は、まだ対応されてないけど、ここもきっと
 ![GitHub Actions](./2026010300/githubactions.png)
 
 
+**コード例**
+
+`patterns_allowed` の部分がだいぶ嬉しい
+
+```hcl
+resource "github_actions_organization_permissions" "this" {
+  allowed_actions      = "selected"
+  enabled_repositories = "selected"
+
+  allowed_actions_config {
+    github_owned_allowed = true
+    verified_allowed = false
+    patterns_allowed = [
+      "anthropics/claude-code-action@7c5a98d59d2464ae73f453c3e649f5b813374481",
+      "golangci/golangci-lint-action@971e284b6050e8a5849b72094c50ab08da042db8",
+    ]
+  }
+}
+```
+
+---
+
 
 ### 2. GitHub Appsのインストール
 
@@ -78,6 +100,7 @@ SHA Pinningの設定は、まだ対応されてないけど、ここもきっと
 
 ![GitHub Apps](./2026010300/githubapps.png)
 
+---
 
 ### 3. チームの管理
 
@@ -91,6 +114,8 @@ SHA Pinningの設定は、まだ対応されてないけど、ここもきっと
 ただし、IdPのグループのIDとかはハードコードになるし、ownerに集中する作業ではないし、何か標準化したい部分も少ないから、そこまでって組織も多そう。
 
 
+---
+
 ### 4. リポジトリの設定全般
 
 ここは、レビューしたい、ownerに集中するのをやめたいってモチベーションよりも、設定を標準化したいって思う箇所かなと思う。
@@ -103,11 +128,11 @@ PullRequestがマージされたらブランチ消すやつ、よく設定漏れ
 ![rulesets](./2026010300/ruleset.png)
 
 
+---
+
 ### 5. Organization全体的な設定
 
-Orgレベルの設定は、Owner以外が見れない箇所だから、Terraformで管理してチームで合意した設定にしたい。レビューされて設定されたという証跡も残る。
-
-
+Orgレベルの設定は、Owner以外が見れない箇所だから、Terraformで管理してチームで合意した設定にしたい。レビューされて設定されたという証跡も残るので嬉しい
 
 
 ---
