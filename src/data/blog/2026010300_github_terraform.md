@@ -198,6 +198,7 @@ https://github.com/integrations/terraform-provider-github/issues/509#issuecommen
 
 #### 新しい機能
 
+あたりまえ体操。
 後述しますが、新しい機能への追従は結構時間がかかっている印象です。
 この辺は、機能追加されるまで手動管理をせざるを得ないなという感じです。
 
