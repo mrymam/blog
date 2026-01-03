@@ -21,9 +21,9 @@ description: GitHubのTerraform Providerを調べてみて、俺は使いたい�
 ## はじめに
 
 
-セキュリティ的な意識が世の中で注視されているな思う昨今、GitHubもそこを意識した機能が続々と出ていますね。[ActionsのSHA pinningの強制](https://github.blog/changelog/2025-08-15-github-actions-policy-now-supports-blocking-and-sha-pinning-actions)や、[Immutable Release](https://github.blog/changelog/2025-08-26-releases-now-support-immutability-in-public-preview/) あたりは、結構うれしい機能で、みんなも早速使っている印象。
+セキュリティ的な意識が世の中で注視されているなと思う昨今、GitHubもそこを意識した機能が続々と出ていますね。[ActionsのSHA pinningの強制](https://github.blog/changelog/2025-08-15-github-actions-policy-now-supports-blocking-and-sha-pinning-actions)や、[Immutable Release](https://github.blog/changelog/2025-08-26-releases-now-support-immutability-in-public-preview/) あたりは、結構うれしい機能で、みんなも早速使っている印象。
 
-ただ、この辺の設定をOwnerがひとつずつ管理するのは難しいし、全てのリポジトリでガバナンスを効かせるのも難しいなと感じてきました。
+ただ、この辺含めて設定をOwnerがひとつずつ管理するのは難しいし、全てのリポジトリでガバナンスを効かせるのも難しいなと感じてきました。
 
 できれば、IaC管理して、みんなでレビューできる体制にしたく、[GitHub の Terraform Provider](https://github.com/integrations/terraform-provider-github) で、やれそうか調べてみました
 
