@@ -40,7 +40,7 @@
     }
 
     hr {
-      @apply border-border;
+      @apply border-foreground/20 border-t;
     }
 
     img {
