@@ -1,5 +1,5 @@
 ---
-title: GitHubのTerraform Providerを使ったら嬉しいか想像してみた
+title: GitHubの設定をTerraform管理するのアリかもな
 author: mrymam
 pubDatetime: 2026-01-03T00:00:00.000Z
 slug: github-terraform-provider
@@ -15,10 +15,11 @@ description: GitHubのTerraform Providerを調べてみて、俺は使いたい�
 
 ## 結論
 
-嬉しいか嬉しくないかでいうと、嬉しいと思う。俺は使いたい。
-GitHub Actionsあたりと、Repository Ruleset、GitHub Appsあたりの設定は、これで管理できるだいぶ健全な管理になるなと思う。
 
-ただし、どうしても最新機能への追従が遅れることを受け入けなければならない。この辺は手動管理との併用を覚悟すべきかな
+ORGの設定と、Repository、GitHub Appsあたりの設定は、Terraformで管理できるとだいぶ健全に管理できるなと思った。この辺の設定は、OwnerやリポジトリのAdminじゃないとそもそも見ることもできないから、レビューを通してチームメンバーみんなで合意して設定した方が良さそうだから。
+
+
+ただし、どうしても最新機能への追従が遅れる部分ももちろんある。この辺は手動管理との併用を覚悟すべきかな
 
 ---
 
