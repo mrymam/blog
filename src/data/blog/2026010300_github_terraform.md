@@ -2,7 +2,7 @@
 title: GitHubの設定をTerraform管理したい
 author: mrymam
 pubDatetime: 2026-01-03T00:00:00.000Z
-slug: github-terraform-provider
+slug: github-terraform
 featured: true
 draft: false
 tags:
