@@ -120,7 +120,7 @@ resource "github_actions_organization_permissions" "this" {
 
 ここは、レビューしたい、ownerに集中するのをやめたいってモチベーションよりも、設定を標準化したいって思う箇所かなと思う。
 
-例えば、Repository Rulesetなどは、設定項目が結構多いから、全てのリポジトリを手動でガバナンス効かせるのか結構むずい。
+例えば、Repository Rulesetなどは、設定項目が結構多いから、全てのリポジトリを手動でガバナンス効かせるのは結構むずい。
 だから、標準設定のモジュールを用意して、ガバナンスを効かせるみたいなのは、結構良いんじゃないかなと思う。
 
 PullRequestがマージされたらブランチ消すやつ、よく設定漏れるけどそういうのも漏れずにできる。地味に嬉しい
@@ -137,40 +137,6 @@ Orgレベルの設定は、Owner以外が見れない箇所だから、Terraform
 
 ---
 
-
-## 管理ができない・諦めた方がいいところ
-
-
-### GitHub Appsの作成
-
-上でGitHub AppsのインストールはTerraform管理できて嬉しいって書きましたが、
-**Appsの管理自体**にはGitHub APIが対応しておらず、機能がサポートされていません。
-
-
-[Issueコメント](https://github.com/integrations/terraform-provider-github/issues/509#issuecomment-1771169834)でも指摘されていますね
-> This part of the API has existed for some time, it can be used to manage app installations, but not apps
-
-
-
-### 新しい機能
-
-後述しますが、新しい機能への追従は結構時間がかかっている印象です。
-この辺は、機能追加されるまで手動管理をせざるを得ないなという感じです。
-
-
-### 主要な未対応機能 抜粋
-
-執筆時点で Terraform リソースが提供されていない機能です。
-
-| 機能 | 備考 |
-|------|------|
-| GitHub App の作成 | App 自体の作成・設定は手動。インストール後のリポジトリ割当は `github_app_installation_repositories` で可 |
-| Repository Rulesets の新機能 | 一部の新しいルールタイプが未対応の場合あり |
-| GitHub Actions Shaping | 使用量制限・スペンディング制限の設定 |
-| GitHub Copilot 設定 | 使用可能モデル、ポリシー設定など |
-
----
-
 ## 注意点
 
 
@@ -178,7 +144,7 @@ Orgレベルの設定は、Owner以外が見れない箇所だから、Terraform
 
 GitHub Actions上で実行するとなると、Classic PAT、Fine-grained PAT、GitHub App Token の3種類が候補になりますが、基本的にはGitHub App Tokenで対応可能です。基本的にApp Tokenがセキュリティ的にもベストプラクティスだと思うので、これを使うことになると思います。
 
-ただし、GitHub Appsのインストール（`github_app_installation_repositories`）は **Classic PAT** が必須となります。GitHub API
+ただし、GitHub Appsのインストール（`github_app_installation_repositories`）は **Classic PAT** が必須となります。
 
 基本セキュリティ的な観点でこれを使いたくないってことが多いと思うので、悲しいところですね。
 
@@ -194,7 +160,8 @@ GitHub Actions上で実行するとなると、Classic PAT、Fine-grained PAT、
 **作成**はGitHub APIが対応しておらず、機能がサポートされていません。
 ここは、結構Terraform管理したかったな。
 
-https://github.com/integrations/terraform-provider-github/issues/509#issuecomment-909524982
+[Issueコメント](https://github.com/integrations/terraform-provider-github/issues/509#issuecomment-1771169834)でも指摘されていますね
+> This part of the API has existed for some time, it can be used to manage app installations, but not apps
 
 #### 新しい機能
 
@@ -211,28 +178,9 @@ https://github.com/integrations/terraform-provider-github/issues/509#issuecommen
 |------|------|
 | GitHub App の作成 | App 自体の作成・設定は手動。インストール後のリポジトリ割当は `github_app_installation_repositories` で可 |
 | Repository Rulesets の新機能 | 一部の新しいルールタイプが未対応の場合あり |
-| GitHub Actions SHA Pinning | 使用量制限・スペンディング制限の設定 |
+| GitHub Actions SHA Pinning | ActionsのPinning |
 | GitHub Copilot 設定 | 使用可能モデル、ポリシー設定など |
 
-
-
-## 機能追従が遅い問題を少し掘ってみる
-
-
-**まず、GitHub Provider自体について**
-
-GitHubのProviderは、公式で開発されているもので、Golangで開発されている。当たり前だけど、GitHub APIを後ろで叩いている（当たり前）。
-
-**google/go-github 依存が大変そうだな**
-
-github.com/google/go-github に依存して開発されているから、
-
-github.com/google/go-github/v67/github
-
-
-https://github.com/integrations/terraform-provider-github
-
-https://registry.terraform.io/providers/integrations/github/latest
 
 ---
 
@@ -247,13 +195,13 @@ https://registry.terraform.io/providers/integrations/github/latest
 
 この辺がモチベーションだなと感じました。
 
-新機能のリリースまで時間がかかるっていうのはありますが、OSSにしてくれているんだから、使っている以上コントリビュートしないとでですね。
+新機能のリリースまで時間がかかるっていうのはありますが、OSSにしてくれているんだから、使っている以上コントリビュートしないとですね。
 
 
 
 ---
 
-## おまけ：機能追従が遅い問題を少し掘って見る
+## おまけ：機能追従が遅い問題を少し掘ってみる
 
 
 GitHubのProviderは、公式で開発されているもので、当たり前だけど、GitHub APIを後ろで叩いている。そして、Goで開発されていて、github.com/google/go-githubという ライブラリ を使っています。
@@ -274,7 +222,7 @@ GitHub に新機能が追加されても、以下の順で対応されるので�
 go-github v66 → v76 の間に 多数の breaking changeがあって、型定義の変更、API 削除、state migration あたりを頑張っている様子。
 
 なので、go-github更新は メジャーリリース（v7.0.0）でまとめて行う。
-→ 新しい go-githubがないと新しい機能のAPIを叩けないから、それに引っ張られて対応が遅る
+→ 新しい go-githubがないと新しい機能のAPIを叩けないから、それに引っ張られて対応が遅れる
 
 という感じになっていそうです。
 
