@@ -1,5 +1,5 @@
 ---
-title: GitHubの設定をTerraform管理するのアリかもな
+title: GitHubの設定をTerraform管理したい
 author: mrymam
 pubDatetime: 2026-01-03T00:00:00.000Z
 slug: github-terraform-provider
@@ -13,25 +13,13 @@ description: GitHubのTerraform Providerを調べてみて、俺は使いたい�
 
 ---
 
-## 結論
-
-
-[Terraform Provider](https://github.com/integrations/terraform-provider-github)を調べてみた感じ、俺はTerraform管理したらいいなと思った。
-ORG・Repository・GitHub Apps あたりの設定はTerraformで管理できると健全。
-
-- OwnerやAdminしか見れない設定を、チーム全員で見れるようになる
-- PRレビューを通して合意形成・証跡管理ができる
-
-ただし、最新機能への追従は遅れがち。手動管理との併用になる
-
----
 
 ## はじめに
 
 
 セキュリティ的な意識が世の中で注視されているな思う昨今、GitHubもそこを意識した機能が続々と出ていますね。[ActionsのSHA pinningの強制](https://github.blog/changelog/2025-08-15-github-actions-policy-now-supports-blocking-and-sha-pinning-actions)や、[Immutable Release](https://github.blog/changelog/2025-08-26-releases-now-support-immutability-in-public-preview/) あたりは、結構うれしい機能で、みんなも早速使っている印象。
 
-この辺の設定をOwnerがひとつずつ管理するのは難しいし、全てのリポジトリでガバナンスを効かせるのも難しいなと感じてきました。
+ただ、この辺の設定をOwnerがひとつずつ管理するのは難しいし、全てのリポジトリでガバナンスを効かせるのも難しいなと感じてきました。
 
 できれば、IaC管理して、みんなでレビューできる体制にしたく、[GitHub の Terraform Provider](https://github.com/integrations/terraform-provider-github) で、やれそうか調べてみました
 
@@ -41,6 +29,20 @@ ORG・Repository・GitHub Apps あたりの設定はTerraformで管理できる�
 この記事では、この辺を管理したら便利そうだなってところと、この辺は注意しないとなって思う部分をつらつらとまとめてみます。
 
 できるだけ裏をとって調べていますが、間違っていたら指摘してください。
+
+
+---
+
+## 結論
+
+
+[Terraform Provider](https://github.com/integrations/terraform-provider-github)を調べてみた感じ、俺はTerraform管理したらいいなと思った。
+ORG・Repository・GitHub Apps あたりの設定はTerraformで管理できると健全。
+
+- OwnerやAdminしか見れない設定を、チーム全員で見れるようになる
+- PRレビューを通して合意形成・証跡管理ができる
+
+ただし、最新機能への追従は遅れがち。手動管理との併用になる。
 
 
 ---
@@ -58,7 +60,7 @@ ORG・Repository・GitHub Apps あたりの設定はTerraformで管理できる�
 
 SHA Pinningの設定は、まだ対応されてないけど、ここもきっといつか対応してくれるはず。([Issue](https://github.com/integrations/terraform-provider-github/issues/2869)は立っている)
 
-![GitHub Actions](./githubactions.png)
+![GitHub Actions](./2026010300/githubactions.png)
 
 
 
@@ -69,7 +71,7 @@ SHA Pinningの設定は、まだ対応されてないけど、ここもきっと
 
 ただし、ここはClassic PATを使う必要があり注意。詳細は後述します。
 
-![GitHub Apps](./githubapps.png)
+![GitHub Apps](./2026010300/githubapps.png)
 
 
 ### 3. チームの管理
@@ -93,7 +95,7 @@ SHA Pinningの設定は、まだ対応されてないけど、ここもきっと
 
 PullRequestがマージされたらブランチ消すやつ、よく設定漏れるけどそういうのも漏れずにできる。地味に嬉しい
 
-![rulesets](./ruleset.png)
+![rulesets](./2026010300/ruleset.png)
 
 
 ### 5. Organization全体的な設定
