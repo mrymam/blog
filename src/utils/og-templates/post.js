@@ -1,14 +1,13 @@
 import satori from "satori";
 import fs from "node:fs";
 import path from "node:path";
-// import { html } from "satori-html";
-import { SITE } from "@/config";
 import loadGoogleFonts from "../loadGoogleFont";
 
 // Profile icon as Base64 data URI
 const iconPath = path.resolve("public/profile-icon.jpg");
 const iconBuffer = fs.readFileSync(iconPath);
 const profileIcon = `data:image/jpeg;base64,${iconBuffer.toString("base64")}`;
+
 
 // const markup = html`<div
 //       style={{
@@ -159,15 +158,50 @@ export default async post => {
                   },
                   children: [
                     {
-                      type: "p",
+                      type: "div",
                       props: {
                         style: {
-                          fontSize: 72,
-                          fontWeight: "bold",
-                          maxHeight: "84%",
-                          overflow: "hidden",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "16px",
                         },
-                        children: post.data.title,
+                        children: [
+                          {
+                            type: "p",
+                            props: {
+                              style: {
+                                fontSize: 72,
+                                fontWeight: "bold",
+                                maxHeight: "70%",
+                                overflow: "hidden",
+                              },
+                              children: post.data.title,
+                            },
+                          },
+                          {
+                            type: "div",
+                            props: {
+                              style: {
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: "8px",
+                              },
+                              children: post.data.tags.map(tag => ({
+                                type: "span",
+                                props: {
+                                  style: {
+                                    fontSize: 32,
+                                    padding: "6px 16px",
+                                    background: "#e0e0e0",
+                                    borderRadius: "6px",
+                                    color: "#333",
+                                  },
+                                  children: `#${tag}`,
+                                },
+                              })),
+                            },
+                          },
+                        ],
                       },
                     },
                     {
@@ -175,51 +209,36 @@ export default async post => {
                       props: {
                         style: {
                           display: "flex",
-                          justifyContent: "space-between",
+                          justifyContent: "flex-end",
+                          alignItems: "center",
                           width: "100%",
                           marginBottom: "8px",
-                          fontSize: 28,
+                          fontSize: 36,
+                          gap: "12px",
                         },
                         children: [
                           {
-                            type: "div",
+                            type: "img",
                             props: {
+                              src: profileIcon,
+                              width: 84,
+                              height: 84,
                               style: {
-                                display: "flex",
-                                alignItems: "center",
-                                gap: "12px",
+                                borderRadius: "50%",
+                                border: "3px solid #888",
                               },
-                              children: [
-                                {
-                                  type: "img",
-                                  props: {
-                                    src: profileIcon,
-                                    width: 64,
-                                    height: 64,
-                                    style: {
-                                      borderRadius: "50%",
-                                      border: "3px solid #888",
-                                    },
-                                  },
-                                },
-                                {
-                                  type: "span",
-                                  props: {
-                                    style: {
-                                      overflow: "hidden",
-                                      fontWeight: "bold",
-                                    },
-                                    children: post.data.author,
-                                  },
-                                },
-                              ],
                             },
                           },
                           {
                             type: "span",
                             props: {
-                              style: { overflow: "hidden", fontWeight: "bold" },
-                              children: SITE.title,
+                              style: {
+                                overflow: "hidden",
+                                fontWeight: "bold",
+                                fontSize: "44px",
+                                marginLeft: "6px",
+                              },
+                              children: post.data.author,
                             },
                           },
                         ],
@@ -238,7 +257,7 @@ export default async post => {
       height: 630,
       embedFont: true,
       fonts: await loadGoogleFonts(
-        post.data.title + post.data.author + SITE.title + "by"
+        post.data.title + post.data.author + "#" + post.data.tags.join("#")
       ),
     }
   );
